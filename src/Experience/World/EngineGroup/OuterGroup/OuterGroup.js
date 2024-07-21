@@ -2,6 +2,7 @@ import * as THREE from "three";
 import Experience from "../../../Experience";
 import Shell from "./Shell";
 import Seal from "./Seal";
+import CameraTarget from "./CameraTarget";
 import HeadGroup from "./HeadGroup/HeadGroup";
 import EventListener from "../../../Utils/EventListener";
 
@@ -27,6 +28,7 @@ export default class OuterGroup {
     this.setInstance();
     this.setShell();
     this.setSeal();
+    // this.setCameraTarget();
     this.getHeadGroup();
     this.addEventListeners();
 
@@ -48,6 +50,11 @@ export default class OuterGroup {
   setSeal() {
     this.seal = new Seal();
     this.instance.add(this.seal.getMesh());
+  }
+
+  setCameraTarget() {
+    this.cameraTarget = new CameraTarget();
+    this.instance.add(this.cameraTarget.getMesh());
   }
 
   getHeadGroup() {

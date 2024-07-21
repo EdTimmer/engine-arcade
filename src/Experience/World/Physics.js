@@ -17,7 +17,7 @@ export default class Physics {
     // this.innerSphere = this.experience.world.engineGroup.coreGroup.innerSphere;
     this.maxAngularVelocity = 5;
     this.numberOfClonesOnHit = 5;
-    this.maxClonesNumber = 100;
+    this.maxClonesNumber = 50;
     this.isFirstCloneCollision = true;
     this.clonesInitialized = false; // Flag to track if clones have been initialized
     this.targetBodyToRemove = null;
@@ -328,6 +328,39 @@ export default class Physics {
     this.world.addBody(this.obstacleSphereCenterBody);
   }
 
+  setObstacleSphereFarTopBody(meshPosition, meshQuaternion) {
+    this.obstacleSphereFarTopBody = new CANNON.Body({
+      mass: 0, // Static body
+      shape: new CANNON.Sphere(36),
+      position: new CANNON.Vec3(780, 0, 0),
+    });
+    this.obstacleSphereFarTopBody.position.copy(meshPosition);
+    this.obstacleSphereFarTopBody.quaternion.copy(meshQuaternion);
+    this.world.addBody(this.obstacleSphereFarTopBody);
+  }
+
+  setObstacleSphereFarCenterBody(meshPosition, meshQuaternion) {
+    this.obstacleSphereFarCenterBody = new CANNON.Body({
+      mass: 0, // Static body
+      shape: new CANNON.Sphere(36),
+      position: new CANNON.Vec3(780, 0, 0),
+    });
+    this.obstacleSphereFarCenterBody.position.copy(meshPosition);
+    this.obstacleSphereFarCenterBody.quaternion.copy(meshQuaternion);
+    this.world.addBody(this.obstacleSphereFarCenterBody);
+  }
+
+  setObstacleSphereFarBottomBody(meshPosition, meshQuaternion) {
+    this.obstacleSphereFarBottomBody = new CANNON.Body({
+      mass: 0, // Static body
+      shape: new CANNON.Sphere(36),
+      position: new CANNON.Vec3(780, 0, 0),
+    });
+    this.obstacleSphereFarBottomBody.position.copy(meshPosition);
+    this.obstacleSphereFarBottomBody.quaternion.copy(meshQuaternion);
+    this.world.addBody(this.obstacleSphereFarBottomBody);
+  }
+
  
   update() {
     this.delta = this.experience.time.getDelta();
@@ -386,7 +419,7 @@ export default class Physics {
     }
 
     if (this.isGameOver) {
-      this.world.gravity.set(0, 0, 20);
+      this.world.gravity.set(0, -20, 0);
       // remove all targets
       this.targetMeshes.forEach((targetMesh, index) => {
         this.scene.remove(targetMesh);

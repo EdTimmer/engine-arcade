@@ -5,9 +5,9 @@ export default class Wall {
   constructor() {
     this.experience = new Experience()
     this.scene = this.experience.scene
-    this.radius = 400;
+    this.radius = 800;
     this.height = 250;
-    this.showWireframe = false;
+    this.showWireframe = true;
     this.physics = this.experience.physics;
 
     this.setMaterial()
@@ -26,7 +26,7 @@ export default class Wall {
   }
 
   setGeometry() {
-    this.geometry = new THREE.CylinderGeometry(this.radius, this.radius, this.height, 32, 1, true);
+    this.geometry = new THREE.CylinderGeometry(this.radius, this.radius, this.height, 64, 1, true);
   }
 
   setMesh() {

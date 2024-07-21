@@ -5,8 +5,8 @@ export default class Floor {
   constructor() {
     this.experience = new Experience()
     this.scene = this.experience.scene
-    this.radius = 400;
-    this.showWireframe = false;
+    this.radius = 800;
+    this.showWireframe = true;
     this.physics = this.experience.physics;
 
     this.setMaterial()
@@ -25,7 +25,7 @@ export default class Floor {
   }
 
   setGeometry() {
-    this.geometry = new THREE.PlaneGeometry(this.radius * 2, this.radius * 2, 7, 7);
+    this.geometry = new THREE.PlaneGeometry(this.radius * 2, this.radius * 2, 14, 14);
   }
 
   setMesh() {

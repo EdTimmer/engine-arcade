@@ -9,7 +9,7 @@ export default class Obstacle {
     this.height = 200;
     this.physics = this.experience.physics;
     this.elapsedTime = this.experience.elapsedTime;
-    this.showWireframe = false;
+    this.showWireframe = true;
 
     this.setMaterial()
     this.setGeometry()
@@ -50,9 +50,9 @@ export default class Obstacle {
   }
 
   update() {    
-    this.mesh.position.x = 370 * Math.cos(this.experience.time.getElapsedTime() * 0.002);
+    this.mesh.position.x = 790 * Math.cos(this.experience.time.getElapsedTime() * 0.002);
     this.mesh.position.y = 0; // Keep it on the horizontal plane
-    this.mesh.position.z = 370 * Math.sin(this.experience.time.getElapsedTime() * 0.002);
+    this.mesh.position.z = 790 * Math.sin(this.experience.time.getElapsedTime() * 0.002);
     // this.mesh.rotation.y = -this.experience.time.getElapsedTime() * 0.1;
     // this.mesh.rotation.z += 0.01
     // this.mesh.rotation.x += 0.01

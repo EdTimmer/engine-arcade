@@ -63,6 +63,6 @@ export default class Environment {
     this.environmentMap.background = this.resources.items.background
     
     this.scene.environment = this.environmentMap.background
-    this.scene.background = this.environmentMap.background
+    // this.scene.background = this.environmentMap.background
   }
 }

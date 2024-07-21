@@ -9,6 +9,9 @@ import Obstacle from "./ArenaGroup/Obstacle"
 import ObstacleSphereTop from "./ArenaGroup/ObstacleSphereTop"
 import ObstacleSphereBottom from "./ArenaGroup/ObstacleSphereBottom"
 import ObstacleSphereCenter from "./ArenaGroup/ObstacleSphereCenter"
+import ObstacleSphereFarTop from "./ArenaGroup/ObstacleSphereFarTop"
+import ObstacleSphereFarBottom from "./ArenaGroup/ObstacleSphereFarBottom"
+import ObstacleSphereFarCenter from "./ArenaGroup/ObstacleSphereFarCenter"
 import ModalController from "../ModalController"
 
 export default class World {
@@ -43,10 +46,13 @@ export default class World {
       this.wall = new Wall();
       this.ceiling = new Ceiling();
       this.floor = new Floor();
-      this.obstacle = new Obstacle();
+      // this.obstacle = new Obstacle();
       this.obstacleSphereTop = new ObstacleSphereTop();
       this.obstacleSphereBottom = new ObstacleSphereBottom();
       this.obstacleSphereCenter = new ObstacleSphereCenter();
+      this.obstacleSphereFarTop = new ObstacleSphereFarTop();
+      this.obstacleSphereFarBottom = new ObstacleSphereFarBottom();
+      this.obstacleSphereFarCenter = new ObstacleSphereFarCenter();
       this.modalController = new ModalController('modal')
       this.environment = new Environment()
            
@@ -71,7 +77,10 @@ export default class World {
     if (this.obstacleSphereTop) this.obstacleSphereTop.setWireframe(value)
     if (this.obstacleSphereBottom) this.obstacleSphereBottom.setWireframe(value)
     if (this.obstacleSphereCenter) this.obstacleSphereCenter.setWireframe(value)
-    if (this.obstacle) this.obstacle.setWireframe(value)
+    if (this.obstacleSphereFarBottom) this.obstacleSphereFarBottom.setWireframe(value)
+    if (this.obstacleSphereFarTop) this.obstacleSphereFarTop.setWireframe(value)
+    if (this.obstacleSphereFarCenter) this.obstacleSphereFarCenter.setWireframe(value)
+    // if (this.obstacle) this.obstacle.setWireframe(value)
   }
 
   update() {
@@ -84,9 +93,9 @@ export default class World {
     if (this.target) {
       this.target.update()
     }
-    if (this.obstacle) {
-      this.obstacle.update()
-    }
+    // if (this.obstacle) {
+    //   this.obstacle.update()
+    // }
     if (this.obstacleSphereTop) {
       this.obstacleSphereTop.update()
     }
@@ -95,6 +104,15 @@ export default class World {
     }
     if (this.obstacleSphereCenter) {
       this.obstacleSphereCenter.update()
+    }
+    if (this.obstacleSphereFarBottom) {
+      this.obstacleSphereFarBottom.update()
+    }
+    if (this.obstacleSphereFarTop) {
+      this.obstacleSphereFarTop.update()
+    }
+    if (this.obstacleSphereFarCenter) {
+      this.obstacleSphereFarCenter.update()
     }
   }
 }

@@ -7,7 +7,7 @@ export default class ObstacleSphereTop {
     this.scene = this.experience.scene
     this.physics = this.experience.physics;
     this.elapsedTime = this.experience.elapsedTime;
-    this.showWireframe = false;
+    this.showWireframe = true;
 
     this.setMaterial()
     this.setGeometry()

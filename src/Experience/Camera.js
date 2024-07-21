@@ -9,19 +9,20 @@ export default class Camera {
     this.scene = this.experience.scene;
     this.canvas = this.experience.canvas;
     this.startPosition = new THREE.Vector3(0, -200, 0);
-    this.endPosition = new THREE.Vector3(-30, 0, -60);
+    this.endPosition = new THREE.Vector3(-50, 5, -30);
     this.introDuration = 5;
     this.oldElapsedTime = 0;
     this.clock = new THREE.Clock();
     this.isInitialMovementDone = false;
+    this.world = this.experience.world;
 
     this.setInstance();
-    this.setOrbitControls();
+    // this.setOrbitControls();
   }
 
   setInstance() {
     this.instance = new THREE.PerspectiveCamera(75, this.sizes.width / this.sizes.height, 0.1, 1000);
-    this.instance.position.set(0, -200, 0);
+    // this.instance.position.set(0, -200, 0);
     this.scene.add(this.instance);
   }
 
@@ -53,15 +54,39 @@ export default class Camera {
     }
   }
 
+  updateCameraPositionAndRotation() {
+    if (!this.target) return;
+    // console.log('this.world :>> ', this.world);
+
+    // Get the target's world position and rotation
+    const targetPosition = new THREE.Vector3();
+    // if (this.world) {
+    //   console.log('this.world :>> ', this.world);
+    //   // const targetPosition = this.experience.world
+    // }
+    
+    const targetQuaternion = new THREE.Quaternion();
+    this.target.getWorldPosition(targetPosition);
+    this.target.getWorldQuaternion(targetQuaternion);
+
+    // Offset for the camera position relative to the target
+    const offset = new THREE.Vector3(-50, 5, -30);
+    offset.applyQuaternion(targetQuaternion);
+    this.instance.position.copy(targetPosition).add(offset);
+
+    // Set the camera's rotation to match the target's rotation
+    this.instance.quaternion.copy(targetQuaternion);
+    this.instance.rotateY(-Math.PI / 2);
+  }
+
+  // update() {
+  //   if (!this.isInitialMovementDone) {
+  //     this.handleInitialCameraMovement();
+  //   } else {
+  //     this.updateCameraPositionAndRotation();
+  //   }
+  // }
   update() {
-    if (!this.isInitialMovementDone) {
-      this.handleInitialCameraMovement();
-    }
-    if (this.controls) {
-      this.controls.update();
-    }
-    if (this.target) {
-      this.instance.lookAt(this.target.position);
-    }
+    this.updateCameraPositionAndRotation()
   }
 }
