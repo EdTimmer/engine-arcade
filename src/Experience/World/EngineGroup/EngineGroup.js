@@ -125,6 +125,21 @@ export default class EngineGroup {
     wKey.addEventListener('mouseup', () => handleKeyUp('w'));
     sKey.addEventListener('mousedown', () => handleKeyDown('s'));
     sKey.addEventListener('mouseup', () => handleKeyUp('s'));
+
+    // Event listeners for touch events
+    arrowUp.addEventListener('touchstart', () => handleKeyDown('ArrowUp'));
+    arrowUp.addEventListener('touchend', () => handleKeyUp('ArrowUp'));
+    arrowDown.addEventListener('touchstart', () => handleKeyDown('ArrowDown'));
+    arrowDown.addEventListener('touchend', () => handleKeyUp('ArrowDown'));
+    arrowLeft.addEventListener('touchstart', () => handleKeyDown('ArrowLeft'));
+    arrowLeft.addEventListener('touchend', () => handleKeyUp('ArrowLeft'));
+    arrowRight.addEventListener('touchstart', () => handleKeyDown('ArrowRight'));
+    arrowRight.addEventListener('touchend', () => handleKeyUp('ArrowRight'));
+
+    wKey.addEventListener('touchstart', () => handleKeyDown('w'));
+    wKey.addEventListener('touchend', () => handleKeyUp('w'));
+    sKey.addEventListener('touchstart', () => handleKeyDown('s'));
+    sKey.addEventListener('touchend', () => handleKeyUp('s'));
   }
 
   update() {
