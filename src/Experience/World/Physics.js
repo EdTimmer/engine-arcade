@@ -17,12 +17,11 @@ export default class Physics {
     // this.innerSphere = this.experience.world.engineGroup.coreGroup.innerSphere;
     this.maxAngularVelocity = 5;
     this.numberOfClonesOnHit = 5;
-    this.maxClonesNumber = 100;
+    this.maxClonesNumber = 50;
     this.isFirstCloneCollision = true;
     this.clonesInitialized = false; // Flag to track if clones have been initialized
     this.targetBodyToRemove = null;
     this.targetToRemove = { mesh: null, body: null };
-    this.isGameOver = false;
 
     this.setWorld();
     this.setMaterials();
@@ -90,11 +89,11 @@ export default class Physics {
 
       // Make Clones
       for (let i = 0; i < this.numberOfClonesOnHit; i++) {
-        if (this.cloneMeshesAndBodies.length < this.maxClonesNumber) {
+        // if (this.cloneMeshesAndBodies.length < this.maxClonesNumber) {
           const clone = new Clone(targetBodyPosition);
           this.scene.add(clone.mesh);
           this.makeCloneBody(clone.mesh); 
-        }
+        // }
       }
     }
     // Get the normal of the contact. Make sure it points away from the surface of the stationary body
@@ -109,22 +108,6 @@ export default class Physics {
 
     // Apply the impulse to the stationary body at the contact point
     this.applyImpulse(event.body, impulseStrength, contact.ri);
-
-    // Remove target mesh and body
-    this.targetMeshes.forEach((targetMesh, index) => {
-      if (targetBodyId === this.targetBodies[index].id) {
-        this.targetToRemove = { mesh: targetMesh, body: this.targetBodies[index] };
-
-        // console.log('targetBodyId :>> ', targetBodyId);
-        // console.log('targetMesh :>> ', targetMesh);
-        // this.targetMeshToRemove = targetMesh;
-        // this.targetBodyToRemove = targetBodyId;
-        // this.scene.remove(targetMesh);
-        // this.world.remove(this.targetBodies[index]);
-        // this.targetMeshes.splice(index, 1);
-        // this.targetBodies.splice(index, 1);
-      }
-    });
   }
 
   applyImpulse(body, impulse, contactPoint) {
@@ -361,6 +344,13 @@ export default class Physics {
     this.world.addBody(this.obstacleSphereFarBottomBody);
   }
 
+  // stopTargets() {
+  //   this.targetBodies.forEach((targetBody) => {
+  //     targetBody.velocity.set(0, 0, 0);
+  //     targetBody.angularVelocity.set(0, 0, 0);
+  //   });
+  // }
+
   // setObstacleTorusLargeBody(meshPosition, meshQuaternion) {
   //   this.obstacleTorusLargeBody = new CANNON.Body({
   //     mass: 0, // Static body
@@ -429,25 +419,42 @@ export default class Physics {
       this.clonesInitialized = true; // Set the flag to true to prevent further logging
     }
 
-    // Remove target mesh and body
-    // if (this.targetToRemove.mesh && this.targetToRemove.body) {
-      // this.scene.remove(this.targetToRemove.mesh);
-      // this.world.remove(this.targetToRemove.body);
-      // this.targetMeshes.splice(this.targetMeshes.indexOf(this.targetToRemove.mesh), 1);
-      // this.targetBodies.splice(this.targetBodies.indexOf(this.targetToRemove.body), 1);
-    // }
-    if (this.cloneMeshesAndBodies.length === this.maxClonesNumber && !this.isGameOver) {
-      console.log('this.cloneMeshesAndBodies.length', this.cloneMeshesAndBodies.length);
-      this.isGameOver = true;
+    if (this.cloneMeshesAndBodies.length === this.maxClonesNumber && !this.experience.isCycleComplete) {
+      // remove all clones
+      this.cloneMeshesAndBodies.forEach((cloneMeshAndBody) => {
+        this.scene.remove(cloneMeshAndBody.cloneMesh);
+        this.world.remove(cloneMeshAndBody.cloneBody);
+      });
+      this.cloneMeshesAndBodies = [];
+      console.log('this.cloneMeshesAndBodies.length :>> ', this.cloneMeshesAndBodies.length);
+
+      this.targetBodies.forEach((targetBody, index) => {
+        targetBody.velocity.set(0, 0, 0);
+        targetBody.angularVelocity.set(0, 0, 0);
+
+        targetBody.position.set(this.targetPositions[index].x, this.targetPositions[index].y, this.targetPositions[index].z);
+        // this.targetPositions.forEach((position) => {
+        //   targetBody.velocity.set(0, 0, 0);
+        //   targetBody.angularVelocity.set(0, 0, 0);
+        //   targetBody.position.set(position.x, position.y, position.z);
+        // });
+      });
+      
+      // set isCycleComplete to true
+      this.experience.toggleCylceComplete()
     }
 
-    if (this.isGameOver) {
-      this.world.gravity.set(0, -20, 0);
-      // remove all targets
-      this.targetMeshes.forEach((targetMesh, index) => {
-        this.scene.remove(targetMesh);
-        this.world.remove(this.targetBodies[index]);
-      });
+    if (this.experience.isCycleComplete) {
+      // set isCycleComplete to false
+      this.experience.toggleCylceComplete()
+      // increment the cycle count
+      if (this.experience.cycles.current < this.experience.cycles.total) {
+        this.experience.cycles.current += 1;
+      } else {
+        this.experience.cycles.current = 0;
+      }
+      
+      
     }
   }
 }

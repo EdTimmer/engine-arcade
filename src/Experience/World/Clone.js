@@ -48,7 +48,17 @@ export default class Clone {
     }
 
     this.mesh.position.set(this.clonePosition.x, this.clonePosition.y, this.clonePosition.z)
-    this.mesh.scale.set(0.5, 1, 1)
+
+    if (this.experience.cycles.current === 0) {
+      this.mesh.scale.set(0.5, 1, 1)
+    } else if (this.experience.cycles.current === 1) {
+      this.mesh.scale.set(3, 3, 3)
+    } else if (this.experience.cycles.current === 2) {
+      this.mesh.scale.set(0.5, 3, 0.5)
+    } else if (this.experience.cycles.current === 3) {
+      this.mesh.scale.set(3, 0.5, 3)
+    }
+
     return this.mesh
   }
 }

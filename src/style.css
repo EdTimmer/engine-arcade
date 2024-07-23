@@ -250,12 +250,20 @@ body
 .modal-content {
     background-color: #000;
     color: #fff;
+    font-family: "Inter", sans-serif;
     font-size: 20px;
+    line-height: 28px;
     margin: 2% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     border-radius: 10px;
     width: 700px; /* Could be more or less, depending on screen size */
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 .close {

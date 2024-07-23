@@ -27,11 +27,11 @@ export default class World {
     this.debug = this.experience.debug
     this.targetPositions = [
       { x: 80, y: 0, z: 0 },
-      { x: 120, y: 0, z: 0 },
-      { x: 0, y: 0, z: 80 },
-      { x: 0, y: 0, z: 120 },
-      { x: 0, y: 0, z: -80 },
-      { x: 0, y: 0, z: -120 },
+      { x: 90, y: 0, z: -10 },
+      { x: 90, y: 0, z: 10 },
+      { x: 100, y: 0, z: -20 },
+      { x: 100, y: 0, z: 0 },
+      { x: 100, y: 0, z: 20 },
     ]
     this.targetMeshes = []
     this.showWireframe = false

@@ -37,6 +37,11 @@ export default class Experience {
     this.world = new World()
     this.physics = new Physics()
     this.elapsedTime = this.time.getElapsedTime()
+    this.isCycleComplete = false
+    this.cycles = {
+      current: 0,
+      total: 3
+    }
 
     // Sizes resize event
     this.sizes.on('resize', () => {
@@ -80,6 +85,9 @@ export default class Experience {
     Experience.restart(this.canvas);
   }
 
+  toggleCylceComplete() {
+    this.isCycleComplete = !this.isCycleComplete
+  }
 
   resize() {
     this.camera.resize()
