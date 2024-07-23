@@ -117,7 +117,7 @@ export default class Physics {
   makeCloneBody(cloneMesh) {
     const cloneBody = new CANNON.Body({
       mass: 1,
-      shape: new CANNON.Sphere(4),
+      shape: new CANNON.Sphere(6),
       material: this.defaultMaterial,
       position: new CANNON.Vec3(cloneMesh.position.x, cloneMesh.position.y, cloneMesh.position.z),
     });
