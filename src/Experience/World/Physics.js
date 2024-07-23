@@ -17,7 +17,7 @@ export default class Physics {
     // this.innerSphere = this.experience.world.engineGroup.coreGroup.innerSphere;
     this.maxAngularVelocity = 5;
     this.numberOfClonesOnHit = 5;
-    this.maxClonesNumber = 50;
+    this.maxClonesNumber = 100;
     this.isFirstCloneCollision = true;
     this.clonesInitialized = false; // Flag to track if clones have been initialized
     this.targetBodyToRemove = null;
@@ -361,6 +361,29 @@ export default class Physics {
     this.world.addBody(this.obstacleSphereFarBottomBody);
   }
 
+  // setObstacleTorusLargeBody(meshPosition, meshQuaternion) {
+  //   this.obstacleTorusLargeBody = new CANNON.Body({
+  //     mass: 0, // Static body
+  //     shape: new CANNON.Sphere(36),
+  //     position: new CANNON.Vec3(780, 0, 0),
+  //   });
+  //   this.obstacleTorusLargeBody.position.copy(meshPosition);
+  //   this.obstacleTorusLargeBody.quaternion.copy(meshQuaternion);
+  //   this.world.addBody(this.obstacleTorusLargeBody);
+  // }
+
+  // setGateSurfaceBody(meshPosition, meshQuaternion) {
+  //   this.gateSurfaceBody = new CANNON.Body({
+  //     mass: 0, // Static body
+  //     shape: new CANNON.Plane(),
+  //     position: new CANNON.Vec3(meshPosition.x, meshPosition.y, meshPosition.z),
+  //   });
+
+  //   this.gateSurfaceBody.quaternion.setFromEuler(-Math.PI / 2, -Math.PI / 2, 0);
+  //   this.gateSurfaceBody.quaternion.copy(meshQuaternion);
+
+  //   this.world.addBody(this.gateSurfaceBody);
+  // }
  
   update() {
     this.delta = this.experience.time.getDelta();

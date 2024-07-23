@@ -12,6 +12,10 @@ import ObstacleSphereCenter from "./ArenaGroup/ObstacleSphereCenter"
 import ObstacleSphereFarTop from "./ArenaGroup/ObstacleSphereFarTop"
 import ObstacleSphereFarBottom from "./ArenaGroup/ObstacleSphereFarBottom"
 import ObstacleSphereFarCenter from "./ArenaGroup/ObstacleSphereFarCenter"
+// import GateGroup from "./GateGroup/GateGroup"
+// import GateFrame from "./GateGroup/GateFrame"
+// import GateSurface from "./GateGroup/GateSurface"
+
 import ModalController from "../ModalController"
 
 export default class World {
@@ -53,6 +57,9 @@ export default class World {
       this.obstacleSphereFarTop = new ObstacleSphereFarTop();
       this.obstacleSphereFarBottom = new ObstacleSphereFarBottom();
       this.obstacleSphereFarCenter = new ObstacleSphereFarCenter();
+      // this.obstacleTorusLarge = new GateFrame();
+      // this.gateSurface = new GateSurface();
+      // this.gateGroup = new GateGroup();
       this.modalController = new ModalController('modal')
       this.environment = new Environment()
            
@@ -80,6 +87,8 @@ export default class World {
     if (this.obstacleSphereFarBottom) this.obstacleSphereFarBottom.setWireframe(value)
     if (this.obstacleSphereFarTop) this.obstacleSphereFarTop.setWireframe(value)
     if (this.obstacleSphereFarCenter) this.obstacleSphereFarCenter.setWireframe(value)
+    // if (this.obstacleTorusLarge) this.obstacleTorusLarge.setWireframe(value)
+    // if (this.gateSurface) this.gateSurface.setWireframe(value)
     // if (this.obstacle) this.obstacle.setWireframe(value)
   }
 
@@ -114,5 +123,11 @@ export default class World {
     if (this.obstacleSphereFarCenter) {
       this.obstacleSphereFarCenter.update()
     }
+    // if (this.obstacleTorusLarge) {
+    //   this.obstacleTorusLarge.update()
+    // }
+    // if (this.gateSurface) {
+    //   this.gateSurface.update()
+    // }
   }
 }

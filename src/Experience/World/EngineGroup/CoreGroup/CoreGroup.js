@@ -5,7 +5,6 @@ import OuterSphere from "./OuterSphere";
 import RingOne from "./RingOne";
 import RingTwo from "./RingTwo";
 import RingThree from "./RingThree";
-import { PI } from "three/examples/jsm/nodes/Nodes.js";
 
 export default class CoreGroup {
   constructor() {

@@ -38,20 +38,6 @@ export default class Experience {
     this.physics = new Physics()
     this.elapsedTime = this.time.getElapsedTime()
 
-    // Example target mesh
-    // this.targetMesh = new THREE.Mesh(
-    //   new THREE.BoxGeometry(1, 1, 1),
-    //   new THREE.MeshStandardMaterial({ color: 0xff0000 })
-    // );
-    // this.targetMesh.position.set(30, 0, 0);
-    
-    // this.scene.add(this.targetMesh);
-    // this.setCameraTarget();
-
-    // Set the target for the camera
-
-    // this.camera.instance.rotateY(Math.PI / 2);
-
     // Sizes resize event
     this.sizes.on('resize', () => {
       this.resize();
@@ -99,11 +85,6 @@ export default class Experience {
     this.camera.resize()
     this.renderer.resize()
   }
-
-  // setCameraTarget() {
-  //   console.log('this.world :>> ', this.world);
-  //   this.camera.setTarget(this.world.engineGroup.outerGroup.cameraTarget.instance);
-  // }
 
   update() {
     // camera update should be before renderer update
