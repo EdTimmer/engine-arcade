@@ -31,11 +31,12 @@ export default class InnerSphere {
     // this.material.transparent = false
     // this.material.opacity = 0
     this.material = new THREE.MeshPhysicalMaterial({ emissive: 'black' })
-    this.material.transmission = 0.8 // 0
+    this.material.transmission = 0 // 0.8
     this.material.ior = 1.592
-    this.material.thickness = 1
-    this.material.color = new THREE.Color('white')
-    this.material.metalness = 0 // 0.8
+    // this.material.thickness = 1
+    // this.material.color = new THREE.Color('white')
+    this.material.color = new THREE.Color('#FFFFFF')
+    this.material.metalness = 0.8 // 0
     this.material.roughness = 0
 
      // Debug
