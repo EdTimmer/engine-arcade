@@ -1,4 +1,4 @@
-# Tron Engine
+# Three.js Project - Engine Arcade
 
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
