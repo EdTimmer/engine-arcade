@@ -23,6 +23,28 @@ export default class Physics {
     this.targetBodyToRemove = null;
     this.targetToRemove = { mesh: null, body: null };
 
+     // Load the target collision sound
+     this.listener = new THREE.AudioListener();
+     this.collisionSound = new THREE.Audio(this.listener);
+     this.endCycleSound = new THREE.Audio(this.listener);
+     this.cloneCollisionSound = new THREE.Audio(this.listener);
+ 
+     const audioLoader = new THREE.AudioLoader();
+     audioLoader.load('sounds/target_hit.wav', (buffer) => {
+       this.collisionSound.setBuffer(buffer);
+       this.collisionSound.setVolume(1);
+     });
+
+    audioLoader.load('sounds/win.wav', (buffer) => {
+      this.endCycleSound.setBuffer(buffer);
+      this.endCycleSound.setVolume(1);
+    });
+
+    audioLoader.load('sounds/clone_hit.wav', (buffer) => {
+      this.cloneCollisionSound.setBuffer(buffer);
+      this.cloneCollisionSound.setVolume(1);
+    });
+
     this.setWorld();
     this.setMaterials();
     this.setEngineBody();
@@ -86,6 +108,10 @@ export default class Physics {
         return; // Exit if less than 100 milliseconds have passed
       }
       this.lastCollisionTime = currentCollisionTime;
+
+      // Play collision sound
+      if (this.collisionSound.isPlaying) this.collisionSound.stop();
+      this.collisionSound.play();
 
       // Make Clones
       for (let i = 0; i < this.numberOfClonesOnHit; i++) {
@@ -159,6 +185,10 @@ export default class Physics {
         return; // Exit if less than 100 milliseconds have passed
       }
       this.lastCollisionTime = currentCollisionTime; 
+
+      // Play collision sound
+      if (this.cloneCollisionSound.isPlaying) this.cloneCollisionSound.stop();
+      this.cloneCollisionSound.play();
 
       // Change the inner sphere to copy the hit clone mesh
       const hitCloneMeshAndBody = this.cloneMeshesAndBodies.find((cloneMeshAndBody) => cloneMeshAndBody.cloneBody.id === cloneBodyId);
@@ -420,24 +450,22 @@ export default class Physics {
     }
 
     if (this.cloneMeshesAndBodies.length === this.maxClonesNumber && !this.experience.isCycleComplete) {
+      // Play end cycle sound
+      if (this.endCycleSound.isPlaying) this.endCycleSound.stop();
+      this.endCycleSound.play();
+
       // remove all clones
       this.cloneMeshesAndBodies.forEach((cloneMeshAndBody) => {
         this.scene.remove(cloneMeshAndBody.cloneMesh);
         this.world.remove(cloneMeshAndBody.cloneBody);
       });
       this.cloneMeshesAndBodies = [];
-      console.log('this.cloneMeshesAndBodies.length :>> ', this.cloneMeshesAndBodies.length);
 
       this.targetBodies.forEach((targetBody, index) => {
         targetBody.velocity.set(0, 0, 0);
         targetBody.angularVelocity.set(0, 0, 0);
 
         targetBody.position.set(this.targetPositions[index].x, this.targetPositions[index].y, this.targetPositions[index].z);
-        // this.targetPositions.forEach((position) => {
-        //   targetBody.velocity.set(0, 0, 0);
-        //   targetBody.angularVelocity.set(0, 0, 0);
-        //   targetBody.position.set(position.x, position.y, position.z);
-        // });
       });
       
       // set isCycleComplete to true

@@ -19,6 +19,16 @@ export default class Resources extends EventEmitter {
     this.scene = this.experience.scene
     this.loadingScreen = document.getElementById('loading-screen');
 
+    // Load the game start sound
+    this.listener = new THREE.AudioListener();
+    this.startSound = new THREE.Audio(this.listener);
+
+    const audioLoader = new THREE.AudioLoader();
+    audioLoader.load('sounds/win.wav', (buffer) => {
+      this.startSound.setBuffer(buffer);
+      this.startSound.setVolume(1);
+    });
+
     this.setLoaders()
     this.startLoading()
   }
@@ -63,6 +73,8 @@ export default class Resources extends EventEmitter {
       // Hide loading screen
       this.loadingScreen.style.display = 'none';
       console.log('finished loading all resources');
+
+      this.startSound.play();
       
       this.trigger('ready')
     }
