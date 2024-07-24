@@ -257,11 +257,5 @@ export default class OuterGroup {
         this.startRightTime = null;
     }
   }
-
-  update() {
-    if (this.headGroup) {
-      this.headGroup.update();
-    }
-  }
 }
 

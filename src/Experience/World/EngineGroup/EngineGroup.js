@@ -149,9 +149,6 @@ export default class EngineGroup {
     if (this.coreGroup) {
       this.coreGroup.update();
     }
-    if (this.outerGroup) {
-      this.outerGroup.update();
-    }
   }
 
   handleMovement(deltaTime) {

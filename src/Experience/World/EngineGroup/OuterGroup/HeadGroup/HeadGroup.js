@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import Experience from "../../../../Experience";
 import HeadShell from "./HeadShell";
-import HeadSphere from "./HeadSphere";
 import HeadCircle from "./HeadCircle";
 
 export default class HeadGroup {
@@ -11,7 +10,6 @@ export default class HeadGroup {
     this.resources = this.experience.resources;
     this.setInstance();
     this.setHeadShell();
-    // this.setHeadSphere();
     this.setHeadCircle();
     this.getInstance();
   }
@@ -30,11 +28,6 @@ export default class HeadGroup {
     this.instance.add(this.headShell.getMesh());
   }
 
-  setHeadSphere() {
-    this.headSphere = new HeadSphere();
-    this.instance.add(this.headSphere.getMesh());
-  }
-
   setHeadCircle() {
     this.headCircle = new HeadCircle();
     this.instance.add(this.headCircle.getMesh());
@@ -42,12 +35,5 @@ export default class HeadGroup {
 
   getInstance() {
     return this.instance;
-  }
-
-  update() {
-    if (this.headSphere) {
-      this.headSphere.mesh.rotation.y += 0.004;
-      this.headSphere.mesh.rotation.x += -0.004;
-    }
   }
 }
