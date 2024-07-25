@@ -18,7 +18,7 @@ export default class Physics {
     // this.innerSphere = this.experience.world.engineGroup.coreGroup.innerSphere;
     this.maxAngularVelocity = 5;
     this.numberOfClonesOnHit = 5;
-    this.maxClonesNumber = 50;
+    this.maxClonesNumber = 55;
     this.isFirstCloneCollision = true;
     this.clonesInitialized = false; // Flag to track if clones have been initialized
     this.targetBodyToRemove = null;
