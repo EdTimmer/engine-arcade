@@ -56,14 +56,9 @@ export default class Camera {
 
   updateCameraPositionAndRotation() {
     if (!this.target) return;
-    // console.log('this.world :>> ', this.world);
 
     // Get the target's world position and rotation
     const targetPosition = new THREE.Vector3();
-    // if (this.world) {
-    //   console.log('this.world :>> ', this.world);
-    //   // const targetPosition = this.experience.world
-    // }
     
     const targetQuaternion = new THREE.Quaternion();
     this.target.getWorldPosition(targetPosition);
@@ -79,13 +74,6 @@ export default class Camera {
     this.instance.rotateY(-Math.PI / 2);
   }
 
-  // update() {
-  //   if (!this.isInitialMovementDone) {
-  //     this.handleInitialCameraMovement();
-  //   } else {
-  //     this.updateCameraPositionAndRotation();
-  //   }
-  // }
   update() {
     this.updateCameraPositionAndRotation()
   }

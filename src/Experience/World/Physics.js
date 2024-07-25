@@ -29,7 +29,6 @@ export default class Physics {
      this.targetHitSound = new THREE.Audio(this.listener);
      this.startCycleSound = new THREE.Audio(this.listener);
      this.cloneHitSound = new THREE.Audio(this.listener);
-     console.log('this.resources :>> ', this.resources);
  
      const audioLoader = new THREE.AudioLoader();
 
