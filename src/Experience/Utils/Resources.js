@@ -17,17 +17,7 @@ export default class Resources extends EventEmitter {
     this.loaded = 0
     this.experience = new Experience()
     this.scene = this.experience.scene
-    this.loadingScreen = document.getElementById('loading-screen');
-
-    // Load the game start sound
-    this.listener = new THREE.AudioListener();
-    this.startSound = new THREE.Audio(this.listener);
-
-    const audioLoader = new THREE.AudioLoader();
-    audioLoader.load('sounds/win.wav', (buffer) => {
-      this.startSound.setBuffer(buffer);
-      this.startSound.setVolume(1);
-    });
+    this.loadingScreen = document.getElementById('loading-screen');  
 
     this.setLoaders()
     this.startLoading()
@@ -38,6 +28,7 @@ export default class Resources extends EventEmitter {
     this.loaders.gltfLoader = new GLTFLoader()
     this.loaders.textureLoader = new THREE.TextureLoader()
     this.loaders.RGBELoader = new RGBELoader()
+    this.loaders.audioLoader = new THREE.AudioLoader()
     // add draco loader if needed    
   }
 
@@ -49,6 +40,8 @@ export default class Resources extends EventEmitter {
     for (const source of this.sources) {
       if (source.type === 'background') {
         this.loadHDRBackground(source.path)
+      } else if (source.type === 'audio') {
+        this.loadAudio(source.path, source.name)
       }
     }
   }
@@ -64,6 +57,15 @@ export default class Resources extends EventEmitter {
     );
   }
 
+  loadAudio(path, name) {
+    this.loaders.audioLoader.load(
+      path,
+      (buffer) => {
+        this.sourceLoaded({ name: name, type: 'audio' }, buffer);
+      }
+    );
+  }
+
   sourceLoaded(source, file) {
     this.items[source.name] = file
 
@@ -73,8 +75,6 @@ export default class Resources extends EventEmitter {
       // Hide loading screen
       this.loadingScreen.style.display = 'none';
       console.log('finished loading all resources');
-
-      this.startSound.play();
       
       this.trigger('ready')
     }

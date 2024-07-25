@@ -7,6 +7,7 @@ export default class Physics {
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
+    this.resouces = this.experience.resources;
     this.targetPositions = this.experience.world.targetPositions;
     this.timeStep = 1 / 60;
     this.clock = new THREE.Clock();
@@ -25,24 +26,26 @@ export default class Physics {
 
      // Load the target collision sound
      this.listener = new THREE.AudioListener();
-     this.collisionSound = new THREE.Audio(this.listener);
-     this.endCycleSound = new THREE.Audio(this.listener);
-     this.cloneCollisionSound = new THREE.Audio(this.listener);
+     this.targetHitSound = new THREE.Audio(this.listener);
+     this.startCycleSound = new THREE.Audio(this.listener);
+     this.cloneHitSound = new THREE.Audio(this.listener);
+     console.log('this.resources :>> ', this.resources);
  
      const audioLoader = new THREE.AudioLoader();
+
      audioLoader.load('sounds/target_hit.wav', (buffer) => {
-       this.collisionSound.setBuffer(buffer);
-       this.collisionSound.setVolume(1);
+       this.targetHitSound.setBuffer(buffer);
+       this.targetHitSound.setVolume(1);
      });
 
     audioLoader.load('sounds/win.wav', (buffer) => {
-      this.endCycleSound.setBuffer(buffer);
-      this.endCycleSound.setVolume(1);
+      this.startCycleSound.setBuffer(buffer);
+      this.startCycleSound.setVolume(1);
     });
 
     audioLoader.load('sounds/clone_hit.wav', (buffer) => {
-      this.cloneCollisionSound.setBuffer(buffer);
-      this.cloneCollisionSound.setVolume(1);
+      this.cloneHitSound.setBuffer(buffer);
+      this.cloneHitSound.setVolume(0.7);
     });
 
     this.setWorld();
@@ -50,7 +53,21 @@ export default class Physics {
     this.setEngineBody();
     this.setTargetBodies();
     this.setAngularVelocity();
+    // this.setSounds();
   }
+
+  // setSounds() {
+  //   this.resources.on('ready', () => {
+  //     this.targetHitSound.setBuffer(this.resources.items['targetHitSound']);
+  //     this.targetHitSound.setVolume(1);
+
+  //     this.startCycleSound.setBuffer(this.resources.items['startSound']);
+  //     this.startCycleSound.setVolume(1);
+
+  //     this.cloneHitSound.setBuffer(this.resources.items['cloneHitSound']);
+  //     this.cloneHitSound.setVolume(1);
+  //   });
+  // }
 
   setWorld() {
     this.world = new CANNON.World();
@@ -110,8 +127,8 @@ export default class Physics {
       this.lastCollisionTime = currentCollisionTime;
 
       // Play collision sound
-      if (this.collisionSound.isPlaying) this.collisionSound.stop();
-      this.collisionSound.play();
+      if (this.targetHitSound.isPlaying) this.targetHitSound.stop();
+      this.targetHitSound.play();
 
       // Make Clones
       for (let i = 0; i < this.numberOfClonesOnHit; i++) {
@@ -187,8 +204,8 @@ export default class Physics {
       this.lastCollisionTime = currentCollisionTime; 
 
       // Play collision sound
-      if (this.cloneCollisionSound.isPlaying) this.cloneCollisionSound.stop();
-      this.cloneCollisionSound.play();
+      if (this.cloneHitSound.isPlaying) this.cloneHitSound.stop();
+      this.cloneHitSound.play();
 
       // Change the inner sphere to copy the hit clone mesh
       const hitCloneMeshAndBody = this.cloneMeshesAndBodies.find((cloneMeshAndBody) => cloneMeshAndBody.cloneBody.id === cloneBodyId);
@@ -451,8 +468,8 @@ export default class Physics {
 
     if (this.cloneMeshesAndBodies.length === this.maxClonesNumber && !this.experience.isCycleComplete) {
       // Play end cycle sound
-      if (this.endCycleSound.isPlaying) this.endCycleSound.stop();
-      this.endCycleSound.play();
+      if (this.startCycleSound.isPlaying) this.startCycleSound.stop();
+      this.startCycleSound.play();
 
       // remove all clones
       this.cloneMeshesAndBodies.forEach((cloneMeshAndBody) => {

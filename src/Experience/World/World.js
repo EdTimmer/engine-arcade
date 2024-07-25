@@ -1,3 +1,4 @@
+import * as THREE from "three"
 import Experience from "../Experience"
 import Environment from "./Environment"
 import EngineGroup from "./EngineGroup/EngineGroup"
@@ -5,7 +6,6 @@ import Target from "./Target"
 import Wall from "./ArenaGroup/Wall"
 import Ceiling from "./ArenaGroup/Ceiling"
 import Floor from "./ArenaGroup/Floor"
-import Obstacle from "./ArenaGroup/Obstacle"
 import ObstacleSphereTop from "./ArenaGroup/ObstacleSphereTop"
 import ObstacleSphereBottom from "./ArenaGroup/ObstacleSphereBottom"
 import ObstacleSphereCenter from "./ArenaGroup/ObstacleSphereCenter"
@@ -47,7 +47,6 @@ export default class World {
       this.wall = new Wall();
       this.ceiling = new Ceiling();
       this.floor = new Floor();
-      // this.obstacle = new Obstacle();
       this.obstacleSphereTop = new ObstacleSphereTop();
       this.obstacleSphereBottom = new ObstacleSphereBottom();
       this.obstacleSphereCenter = new ObstacleSphereCenter();
@@ -59,7 +58,30 @@ export default class World {
            
       // Pass engineGroup to the camera
       this.camera.setTarget(this.engineGroup.instance)
+
+      // Add event listener for the start button
+      document.getElementById('start-button').addEventListener('click', this.startGame.bind(this));
+
+      // Play start sound
+      // const listener = new THREE.AudioListener();
+      // const sound = new THREE.Audio(listener);
+      
+      // sound.setBuffer(this.resources.items['startSound']);
+      // sound.setLoop(false);
+      // sound.setVolume(1);
+      // sound.play();
     })
+  }
+
+  startGame() {
+    // Play start sound
+    const listener = new THREE.AudioListener();
+    const sound = new THREE.Audio(listener);
+      
+    sound.setBuffer(this.resources.items['startSound']);
+    sound.setLoop(false);
+    sound.setVolume(1);
+    sound.play();
   }
 
   makeTargets() {
