@@ -22,7 +22,7 @@ export default class Target {
     this.material.ior = 1.592
     this.material.thickness = 0.2379
     this.material.color = new THREE.Color('white')
-    this.material.metalness = 0.8
+    this.material.metalness = 1
     this.material.roughness = 0
   }
   

@@ -36,7 +36,7 @@ export default class InnerSphere {
     // this.material.thickness = 1
     // this.material.color = new THREE.Color('white')
     this.material.color = new THREE.Color('#FFFFFF')
-    this.material.metalness = 0.8 // 0
+    this.material.metalness = 1 // 0
     this.material.roughness = 0
 
      // Debug

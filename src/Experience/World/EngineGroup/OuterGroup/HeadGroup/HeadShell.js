@@ -21,7 +21,7 @@ export default class HeadShell {
 
   setMaterial() {
     this.material = new THREE.MeshStandardMaterial( { side: THREE.DoubleSide } );
-    this.material.metalness = 0.8
+    this.material.metalness = 1
     this.material.roughness = 0
   }
 

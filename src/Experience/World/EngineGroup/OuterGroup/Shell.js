@@ -31,7 +31,7 @@ export default class Shell {
 
   setMaterial() {
     this.material = new THREE.MeshStandardMaterial();
-    this.material.metalness = 0.8;
+    this.material.metalness = 1;
     this.material.roughness = 0;
   }
 

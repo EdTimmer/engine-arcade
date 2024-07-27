@@ -7,7 +7,7 @@ export default class ModalController {
 
       // Bind the event listeners
       this.closeButton.addEventListener('click', () => this.closeModal());
-      window.addEventListener('click', (event) => this.outsideClick(event));
+    //   window.addEventListener('click', (event) => this.outsideClick(event));
 
       // Open modal on start
       this.openModal();
